@@ -1,0 +1,26 @@
+total 0
+drwxr-xr-x  25 shadowjack  staff   850B Apr 27 21:32 .
+drwxr-xr-x   6 shadowjack  staff   204B Jan  3 20:02 ..
+drwxr-xr-x  17 shadowjack  staff   578B Jul 27  2015 YouCompleteMe
+drwxr-xr-x  26 shadowjack  staff   884B Jul 26  2015 command-t
+drwxr-xr-x  11 shadowjack  staff   374B Jul 27  2015 nerdtree
+drwxr-xr-x   7 shadowjack  staff   238B Jul 26  2015 railscasts-theme
+drwxr-xr-x   8 shadowjack  staff   272B Sep 10  2015 rspec.vim
+drwxr-xr-x  12 shadowjack  staff   408B Nov  8 01:54 syntastic
+drwxr-xr-x  25 shadowjack  staff   850B Jan  3 20:41 ultisnips
+drwxr-xr-x   6 shadowjack  staff   204B Sep 16  2015 vim-autoformat-rails
+drwxr-xr-x   9 shadowjack  staff   306B Jul 26  2015 vim-bundler
+drwxr-xr-x  19 shadowjack  staff   646B Jul 31  2015 vim-coffee-script
+drwxr-xr-x  14 shadowjack  staff   476B Nov  2 21:32 vim-elixir
+drwxr-xr-x   6 shadowjack  staff   204B Dec 13 18:06 vim-endwise
+drwxr-xr-x   8 shadowjack  staff   272B Jul 26  2015 vim-fugitive
+drwxr-xr-x   9 shadowjack  staff   306B Jul 31  2015 vim-javascript
+drwxr-xr-x   5 shadowjack  staff   170B Jul 31  2015 vim-jsx
+drwxr-xr-x   9 shadowjack  staff   306B Jan  3 19:59 vim-phoenix
+drwxr-xr-x  10 shadowjack  staff   340B Apr 27 21:32 vim-preview
+drwxr-xr-x   9 shadowjack  staff   306B Jan  8 13:13 vim-projectionist
+drwxr-xr-x  10 shadowjack  staff   340B Jul 26  2015 vim-rails
+drwxr-xr-x  21 shadowjack  staff   714B Jul 27  2015 vim-ruby
+drwxr-xr-x   8 shadowjack  staff   272B Aug  2  2015 vim-slim
+drwxr-xr-x  14 shadowjack  staff   476B Jan  3 20:12 vim-snippets
+drwxr-xr-x  13 shadowjack  staff   442B Jan  3 19:05 vim-test
