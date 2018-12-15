@@ -11,6 +11,8 @@ Plugin 'VundleVim/Vundle.vim'
 "Plugin 'Valloric/YouCompleteMe'
 " :UpdateRemotePlugins should be run the first time deoplete is installed
 Plugin 'Shougo/deoplete.nvim'
+Plugin 'Shougo/echodoc.vim'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'slashmili/alchemist.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'neomake/neomake'
@@ -22,11 +24,8 @@ Plugin 'SirVer/ultisnips'
 Plugin 'honza/vim-snippets'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-endwise'
 Plugin 'facebook/vim-flow'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
 Plugin 'avdgaag/vim-phoenix'
 Plugin 'greyblake/vim-preview'
 Plugin 'tpope/vim-projectionist'
@@ -34,12 +33,28 @@ Plugin 'janko-m/vim-test'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'nelstrom/vim-visual-star-search'
-
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'powerman/vim-plugin-AnsiEsc'
+Plugin 'mileszs/ack.vim'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'OrangeT/vim-csharp'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-repeat'
+Plugin 'exitface/synthwave.vim'
+Plugin 'mhartington/oceanic-next'
+Plugin 'nightsense/stellarized'
+Plugin 'nightsense/vimspectr'
+Plugin 'ajmwagar/vim-deus'
+Plugin 'vimwiki/vimwiki'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'cakebaker/scss-syntax.vim'
+Plugin 'elmcast/elm-vim'
 
 call vundle#end()
 filetype plugin indent on
 
 set number              " display line numbers
+set clipboard=unnamed   " setup for clipboard in MacOS
 
 let g:jsx_ext_required = 0
 
@@ -54,6 +69,7 @@ set backspace=indent,eol,start
 
 set history=50		" keep 50 lines of command line history
 set ruler		" show the cursor position all the time
+set cursorline          " highlight current line being modified
 set showcmd		" display incomplete commands
 
 set hlsearch            " highlight searched elements
@@ -76,7 +92,10 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
-colorscheme railscasts
+" Set color scheme
+" colorscheme deus
+colorscheme synthwave
+
 " Don't use Ex mode, use Q for formatting
 map Q gq
 
@@ -94,6 +113,11 @@ inoremap <C-U> <C-G>u<C-U>
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
+endif
+
+" Enable 24-bit colors
+if (has("termguicolors"))
+ set termguicolors
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -180,6 +204,8 @@ nmap <silent> <leader>g :TestVisit<CR>
 
 " Setup vim-flow
 let g:flow#autoclose = 1
+let g:javascript_plugin_flow = 1
+let g:flow#enable = 0
 
 " Setup ultiSnips
 let g:UltiSnipsExpandTrigger="<leader><tab>"
@@ -189,8 +215,7 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 """ Setup easy-motion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
-nmap s <Plug>(easymotion-overwin-f2)
-nmap <leader>s <Plug>(easymotion-overwin-f)
+nmap <leader>s <Plug>(easymotion-overwin-f2)
 
 " Turn on case insensitive feature
 let g:EasyMotion_smartcase = 1
@@ -202,8 +227,9 @@ map <Leader>k <Plug>(easymotion-k)
 " Search with easymotion
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
-map  n <Plug>(easymotion-next)
-map  N <Plug>(easymotion-prev)
+"map  n <Plug>(easymotion-next)
+"map  N <Plug>(easymotion-prev)
+
 
 " Align line-wise comment delimiters flush left instead of following code
 " indentation
@@ -215,31 +241,79 @@ let g:NERDSpaceDelims = 1
 " Allow commenting and inverting empty lines (useful when commenting a region)
 let g:NERDCommentEmptyLines = 1
 
-" Rum Neomake every time buffer is saved
+
+" Enable credo maker for elixir
+let g:neomake_elixir_enabled_makers = ['mix', 'credo']
+
+" Adjust flow maker for Neomake
+function! StrTrim(txt)
+  return substitute(a:txt, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+endfunction
+let g:flow_path = StrTrim(system('PATH=$(npm bin):$PATH && which flow'))
+function! FlowArgs()
+  let g:file_path = expand('%:p')
+  return ['-c', g:flow_path.' --json | flow-vim-quickfix']
+".' check-contents '.g:file_path.' < '.g:file_path
+endfunction
+let g:flow_maker = {
+\ 'exe': 'sh',
+\ 'args': function('FlowArgs'),
+\ 'errorformat': '%E%f:%l:%c\,%n: %m',
+\ 'cwd': '%:p:h'
+\ }
+let g:neomake_javascript_enabled_makers = ['flow']
+let g:neomake_jsx_enabled_makers = ['flow']
+let g:neomake_javascript_flow_maker = g:flow_maker
+let g:neomake_jsx_flow_maker = g:flow_maker
+
+" Run Neomake every time buffer is saved
 autocmd! BufWritePost * Neomake
+
 
 " Setup alchemist - provide path to elixir and erlang sources
 let g:alchemist#elixir_erlang_src = "/usr/local/share/src"
 
+
 " Setup Deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_refresh_always = 1
+let g:deoplete#tag#cache_limit_size = 1000000
+" make `around` source not very important
+call deoplete#custom#source('around', 'rank', 1)
 autocmd CompleteDone * pclose
 set completeopt+=noinsert
 inoremap <silent><expr> <TAB> pumvisible() ? "\<Down>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
 function! s:check_back_space() abort "{{{
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
-endfunction"}}}
+endfunction "}}}
+" <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function() abort
+"   return deoplete#close_popup()
+" endfunction
+
+" Don't show current mode in command line window so that echodoc
+" can be visible
+set noshowmode
+set shortmess+=c
 
 " Create a cache for gutentag
 let g:gutentags_cache_dir = '~/.tags_cache'
+set statusline+=%{gutentags#statusline()}
 
 " Setup vim-airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme = "base16_default"
+let g:airline_theme = "deus"
+
 
 " Setup ctrlp
-let g:clear_cache_on_exit=0
+let g:ctrlp_clear_cache_on_exit=0
+let g:ctrlp_match_window = 'bottom,order:ttb'
 
 nmap <Leader>t gt
+
+" Setup Elm support
+let g:polyglot_disabled = ['elm']
+let g:elm_format_autosave = 1
+let g:elm_syntastic_show_warnings = 1

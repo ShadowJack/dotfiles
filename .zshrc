@@ -49,11 +49,11 @@ HIST_STAMPS="dd.mm.yyyy"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew bundler cap coffee osx rails rvm web-search colorize)
+plugins=(git brew osx web-search colorize elixir_mix)
 
 # User configuration
 
-export PATH="/Users/shadowjack/.rvm/gems/ruby-2.2.2/bin:/Users/shadowjack/.rvm/gems/ruby-2.2.2@global/bin:/Users/shadowjack/.rvm/rubies/ruby-2.2.2/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/shadowjack/.rvm/bin:/Users/shadowjack/.rvm/bin"
+export PATH="/Users/shadowjack/.rvm/gems/ruby-2.2.2/bin:/Users/shadowjack/.rvm/gems/ruby-2.2.2@global/bin:/Users/shadowjack/.rvm/rubies/ruby-2.2.2/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/shadowjack/.rvm/bin:/Users/shadowjack/.rvm/bin:/usr/local/share/dotnet"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 
@@ -63,11 +63,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -82,6 +82,25 @@ source $ZSH/oh-my-zsh.sh
 #
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 #
 # alias tmux="TERM=screen-256color-bce tmux"
+alias vim="nvim"
+alias work="cd ~/Documents/Work/"
+
+### Added by the Bluemix CLI
+source /usr/local/Bluemix/bx/zsh_autocomplete
+
+# Setup colors for man() command
+man() {
+	env \
+		LESS_TERMCAP_mb=$(printf "\e[1;31m") \
+		LESS_TERMCAP_md=$(printf "\e[1;31m") \
+		LESS_TERMCAP_me=$(printf "\e[0m") \
+		LESS_TERMCAP_se=$(printf "\e[0m") \
+		LESS_TERMCAP_so=$(printf "\e[1;44;33m") \
+		LESS_TERMCAP_ue=$(printf "\e[0m") \
+		LESS_TERMCAP_us=$(printf "\e[1;32m") \
+			man "$@"
+      }
+
+export ERL_AFLAGS="-kernel shell_history enabled"
