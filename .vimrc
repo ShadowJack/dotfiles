@@ -12,7 +12,6 @@ Plugin 'VundleVim/Vundle.vim'
 " :UpdateRemotePlugins should be run the first time deoplete is installed
 Plugin 'Shougo/deoplete.nvim'
 Plugin 'Shougo/echodoc.vim'
-Plugin 'sheerun/vim-polyglot'
 Plugin 'slashmili/alchemist.vim'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'neomake/neomake'
@@ -49,6 +48,9 @@ Plugin 'vimwiki/vimwiki'
 Plugin 'hail2u/vim-css3-syntax'
 Plugin 'cakebaker/scss-syntax.vim'
 Plugin 'elmcast/elm-vim'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-sleuth'
+Plugin 'tpope/vim-obsession'
 
 call vundle#end()
 filetype plugin indent on
@@ -59,10 +61,6 @@ set clipboard=unnamed   " setup for clipboard in MacOS
 let g:jsx_ext_required = 0
 
 let mapleader=","
-
-set expandtab
-set shiftwidth=2
-set softtabstop=2
 
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start  
@@ -92,9 +90,15 @@ autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
 autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
 autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
 
-" Set color scheme
-" colorscheme deus
-colorscheme synthwave
+" Enable 24-bit colors
+if (has("termguicolors"))
+ set termguicolors
+endif
+
+" Set colors 
+set background=dark
+colorscheme deus
+" colorscheme synthwave
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -113,11 +117,6 @@ inoremap <C-U> <C-G>u<C-U>
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
-endif
-
-" Enable 24-bit colors
-if (has("termguicolors"))
- set termguicolors
 endif
 
 " Switch syntax highlighting on, when the terminal has colors
@@ -230,6 +229,9 @@ omap / <Plug>(easymotion-tn)
 "map  n <Plug>(easymotion-next)
 "map  N <Plug>(easymotion-prev)
 
+" Setup NERDTree so that it doesn't complain about wrong characters
+let g:NERDTreeNodeDelimiter = "\t"
+
 
 " Align line-wise comment delimiters flush left instead of following code
 " indentation
@@ -304,7 +306,7 @@ set statusline+=%{gutentags#statusline()}
 
 " Setup vim-airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme = "deus"
+let g:airline_theme = 'deus'
 
 
 " Setup ctrlp
