@@ -11,7 +11,7 @@
 --regex-Elixir=/^[ \t]*defprotocol[ \t]+([A-Z][a-zA-Z0-9_]*\.)*([A-Z][a-zA-Z0-9_?!]*)/\2/p,protocols,protocols (defprotocol...)/
 --regex-Elixir=/^[ \t]*Record\.defrecord[ \t]+:([a-zA-Z0-9_]+)/\1/r,records,records (defrecord...)/
 
----langdef=Elm
+--langdef=Elm
 --langmap=Elm:.elm
 --regex-Elm=/^ *([[:lower:]][[:alnum:]_]+)[[:blank:]]*:[^:].*->.*/\1/f,function,functions/
 --regex-Elm=/^ *([[:lower:]][[:alnum:]_]+)[[:blank:]]*:[^:][^-]+$/\1/c,constant,constants/
