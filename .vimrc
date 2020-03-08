@@ -1,58 +1,53 @@
 set nocompatible        " use vim settings instead of vi
 filetype off
 
-" Setup Vundle
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" Setup vim-plug
+"
+call plug#begin('~/.vim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'Shougo/echodoc.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'neomake/neomake'
+Plug 'scrooloose/nerdcommenter'
+Plug 'scrooloose/nerdtree'
+Plug 'jpo/vim-railscasts-theme'
+Plug 'vim-syntastic/syntastic'
+Plug 'honza/vim-snippets'
+Plug 'easymotion/vim-easymotion'
+Plug 'ludovicchabant/vim-gutentags'
+" Plug 'tpope/vim-endwise' - not compatible with coc.nvim
+Plug 'facebook/vim-flow'
+Plug 'avdgaag/vim-phoenix'
+Plug 'greyblake/vim-preview'
+Plug 'tpope/vim-projectionist'
+Plug 'janko-m/vim-test'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'jiangmiao/auto-pairs'
+Plug 'powerman/vim-plugin-AnsiEsc'
+Plug 'mileszs/ack.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'OrangeT/vim-csharp'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'exitface/synthwave.vim'
+Plug 'mhartington/oceanic-next'
+Plug 'nightsense/stellarized'
+Plug 'nightsense/vimspectr'
+Plug 'ajmwagar/vim-deus'
+Plug 'vimwiki/vimwiki'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'cakebaker/scss-syntax.vim'
+Plug 'elmcast/elm-vim'
+Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-sleuth'
+Plug 'tpope/vim-obsession'
+Plug 'sts10/vim-pink-moon'
+Plug 'aradunovic/perun.vim'
+Plug 'nightsense/snow'
+call plug#end()
 
-Plugin 'VundleVim/Vundle.vim'
-
-"Plugin 'Valloric/YouCompleteMe'
-" :UpdateRemotePlugins should be run the first time deoplete is installed
-Plugin 'Shougo/deoplete.nvim'
-Plugin 'Shougo/echodoc.vim'
-Plugin 'slashmili/alchemist.vim'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'neomake/neomake'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'jpo/vim-railscasts-theme'
-Plugin 'vim-syntastic/syntastic'
-Plugin 'SirVer/ultisnips'
-Plugin 'honza/vim-snippets'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'tpope/vim-endwise'
-Plugin 'facebook/vim-flow'
-Plugin 'avdgaag/vim-phoenix'
-Plugin 'greyblake/vim-preview'
-Plugin 'tpope/vim-projectionist'
-Plugin 'janko-m/vim-test'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'powerman/vim-plugin-AnsiEsc'
-Plugin 'mileszs/ack.vim'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'OrangeT/vim-csharp'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-repeat'
-Plugin 'exitface/synthwave.vim'
-Plugin 'mhartington/oceanic-next'
-Plugin 'nightsense/stellarized'
-Plugin 'nightsense/vimspectr'
-Plugin 'ajmwagar/vim-deus'
-Plugin 'vimwiki/vimwiki'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'cakebaker/scss-syntax.vim'
-Plugin 'elmcast/elm-vim'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-sleuth'
-Plugin 'tpope/vim-obsession'
-
-call vundle#end()
 filetype plugin indent on
 
 set number              " display line numbers
@@ -86,10 +81,6 @@ set winheight=10
 set winminheight=10
 set winheight=999
 
-autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1 
-autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
-autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
-
 " Enable 24-bit colors
 if (has("termguicolors"))
  set termguicolors
@@ -97,8 +88,7 @@ endif
 
 " Set colors 
 set background=dark
-colorscheme deus
-" colorscheme synthwave
+colorscheme snow
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
@@ -206,10 +196,14 @@ let g:flow#autoclose = 1
 let g:javascript_plugin_flow = 1
 let g:flow#enable = 0
 
-" Setup ultiSnips
-let g:UltiSnipsExpandTrigger="<leader><tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+" Setup coc-snippet
+" Use <leader><tab> for trigger snippet expand.
+imap <leader><tab> <Plug>(coc-snippets-expand)
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
 
 """ Setup easy-motion
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -273,27 +267,48 @@ autocmd! BufWritePost * Neomake
 
 
 " Setup alchemist - provide path to elixir and erlang sources
-let g:alchemist#elixir_erlang_src = "/usr/local/share/src"
+" let g:alchemist#elixir_erlang_src = "/usr/local/share/src"
 
-
-" Setup Deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#tag#cache_limit_size = 1000000
-" make `around` source not very important
-call deoplete#custom#source('around', 'rank', 1)
-autocmd CompleteDone * pclose
-set completeopt+=noinsert
-inoremap <silent><expr> <TAB> pumvisible() ? "\<Down>" : <SID>check_back_space() ? "\<TAB>" : deoplete#mappings#manual_complete()
-function! s:check_back_space() abort "{{{
+"""""" 
+" Setup CoC
+" 
+" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~ '\s'
-endfunction "}}}
-" <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function() abort
-"   return deoplete#close_popup()
-" endfunction
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+" Use <Tab> and <S-Tab> to navigate the completion list
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if has('patch8.1.1068')
+  " Use `complete_info` if your (Neo)Vim version supports it.
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+"""""""
+
 
 " Don't show current mode in command line window so that echodoc
 " can be visible
@@ -319,3 +334,6 @@ nmap <Leader>t gt
 let g:polyglot_disabled = ['elm']
 let g:elm_format_autosave = 1
 let g:elm_syntastic_show_warnings = 1
+
+
+
