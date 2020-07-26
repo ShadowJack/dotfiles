@@ -20,7 +20,6 @@ Plug 'facebook/vim-flow'
 Plug 'avdgaag/vim-phoenix'
 Plug 'greyblake/vim-preview'
 Plug 'tpope/vim-projectionist'
-Plug 'janko-m/vim-test'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'nelstrom/vim-visual-star-search'
@@ -46,6 +45,10 @@ Plug 'tpope/vim-obsession'
 Plug 'sts10/vim-pink-moon'
 Plug 'aradunovic/perun.vim'
 Plug 'nightsense/snow'
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'vim-test/vim-test'
+Plug 'benmills/vimux'
+Plug 'andyl/vim-projectionist-elixir'
 call plug#end()
 
 filetype plugin indent on
@@ -186,10 +189,11 @@ nmap <silent> <leader>O O<ESC>
 nmap <D-V> "+p
 
 " Setup for vim-test plugin
-nmap <silent> <leader>n :TestNearest<CR>
-nmap <silent> <leader>T :TestFile<CR>
-nmap <silent> <leader>l :TestLast<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+nmap <silent> <leader>tn :TestNearest<CR>
+nmap <silent> <leader>tf :TestFile<CR>
+nmap <silent> <leader>tl :TestLast<CR>
+" make test commands execute using vimux
+let test#strategy = "vimux"
 
 " Setup vim-flow
 let g:flow#autoclose = 1
@@ -296,8 +300,20 @@ else
   imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Use outline
+nnoremap <silent> <leader>co  :<C-u>CocList outline<CR>
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
@@ -307,6 +323,8 @@ function! s:show_documentation()
   endif
 endfunction
 
+
+
 """""""
 
 
@@ -315,7 +333,9 @@ endfunction
 set noshowmode
 set shortmess+=c
 
-" Create a cache for gutentag
+" Configure gutentags
+let g:gutentags_ctags_exclude = ['node_modules']
+let g:gutentags_exclude_filetypes = ['dockerfile']
 let g:gutentags_cache_dir = '~/.tags_cache'
 set statusline+=%{gutentags#statusline()}
 
