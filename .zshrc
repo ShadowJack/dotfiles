@@ -53,7 +53,7 @@ plugins=(git brew osx web-search colorize elixir_mix)
 
 # User configuration
 
-export PATH="/Users/shadowjack/.rvm/gems/ruby-2.2.2/bin:/Users/shadowjack/.rvm/gems/ruby-2.2.2@global/bin:/Users/shadowjack/.rvm/rubies/ruby-2.2.2/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/shadowjack/.rvm/bin:/Users/shadowjack/.rvm/bin:/usr/local/share/dotnet"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/share/dotnet:/Library/Frameworks/Mono.framework/Versions/Current/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 
@@ -104,3 +104,8 @@ man() {
       }
 
 export ERL_AFLAGS="-kernel shell_history enabled"
+
+. $HOME/.asdf/asdf.sh
+
+# add a path to local Mono installation
+export FrameworkPathOverride=/Library/Frameworks/Mono.framework/Versions/Current

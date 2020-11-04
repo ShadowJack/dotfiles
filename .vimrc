@@ -27,7 +27,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'mileszs/ack.vim'
 Plug 'elixir-lang/vim-elixir'
-Plug 'OrangeT/vim-csharp'
+" Plug 'OrangeT/vim-csharp'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'exitface/synthwave.vim'
@@ -49,6 +49,8 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-test/vim-test'
 Plug 'benmills/vimux'
 Plug 'andyl/vim-projectionist-elixir'
+Plug 'beyondmarc/hlsl.vim'
+Plug 'OmniSharp/omnisharp-vim'
 call plug#end()
 
 filetype plugin indent on
@@ -355,5 +357,8 @@ let g:polyglot_disabled = ['elm']
 let g:elm_format_autosave = 1
 let g:elm_syntastic_show_warnings = 1
 
+
+""" Setup for OmniSharp
+let g:OmniSharp_server_use_mono = 1
 
 
