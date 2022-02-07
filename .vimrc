@@ -26,7 +26,7 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'jiangmiao/auto-pairs'
 Plug 'powerman/vim-plugin-AnsiEsc'
 Plug 'mileszs/ack.vim'
-Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-editors/vim-elixir'
 " Plug 'OrangeT/vim-csharp'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -43,7 +43,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-obsession'
 Plug 'sts10/vim-pink-moon'
-Plug 'aradunovic/perun.vim'
+" Plug 'aradunovic/perun.vim'
 Plug 'nightsense/snow'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'vim-test/vim-test'
@@ -51,6 +51,8 @@ Plug 'benmills/vimux'
 Plug 'andyl/vim-projectionist-elixir'
 Plug 'beyondmarc/hlsl.vim'
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'mhinz/vim-mix-format'
+Plug 'elixir-lsp/coc-elixir', {'do': 'yarn install && yarn prepack'}
 call plug#end()
 
 filetype plugin indent on
@@ -361,4 +363,6 @@ let g:elm_syntastic_show_warnings = 1
 """ Setup for OmniSharp
 let g:OmniSharp_server_use_mono = 1
 
+" Setup mix-format
+" let g:mix_format_on_save = 1
 
