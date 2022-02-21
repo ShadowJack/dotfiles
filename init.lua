@@ -1,0 +1,7 @@
+require('plugins')
+require('settings')
+require('mappings')
+require('treesitter-cfg')
+require('telescope-cfg')
+require('lsp-config')
+require('autocompletion')
