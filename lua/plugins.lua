@@ -5,7 +5,7 @@ vim.cmd([[
   augroup end
 ]])
 
-return require('packer').startup(function() 
+return require('packer').startup(function()
 	use 'wbthomason/packer.nvim'
 
 	-- common
@@ -40,6 +40,7 @@ return require('packer').startup(function()
 	use 'saadparwaiz1/cmp_luasnip' -- snippets source for nvim-cmp
 	use 'L3MON4D3/LuaSnip' -- snippets provider
 	use 'honza/vim-snippets' -- a collection of snippets for lots of languages
+	use 'wakatime/vim-wakatime' -- tack time of usage
 
 	-- Elixir
 	use { 'elixir-lang/vim-elixir', ft = 'elixir' }

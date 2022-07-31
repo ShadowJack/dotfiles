@@ -36,6 +36,8 @@ nmap('<D-V>', '"+p')
 
 -- Show signature of a function under the cursor
 map('', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+-- Show help
+map('', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
 
 
 -- Plugins --
@@ -64,10 +66,26 @@ map('', '<C-f>', ':Telescope live_grep<CR>')
 nmap('<Leader>tg', ':Telescope git_bcommits<CR>')
 nmap('<Leader>tb', ':Telescope buffers<CR>')
 nmap('<Leader>tr', ':Telescope lsp_references<CR>')
-map('', '<C-]>', ':Telescope lsp_definitions<CR>')
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      -- use LSP to go to definition instead of using on tags
+      -- for current buffer
+      vim.api.nvim_buf_set_keymap(0, '', '<C-]>', ':Telescope lsp_definitions<CR>', { noremap = true, silent = true })
+    end
+  })
 nmap('<Leader>ti', ':Telescope lsp_implementations<CR>')
 nmap('<Leader>ts', ':Telescope lsp_document_symbols<CR>')
 map('', '<C-,>', ':Telescope lsp_code_actions<CR>')
+
+-- Format Elixir files
+vim.api.nvim_create_autocmd({"BufRead","BufNewFile"}, {
+  pattern = {"*.ex", "*.exs", "*.heex"},
+  callback = function(args)
+    vim.api.nvim_buf_set_keymap(0, 'n', '<Leader>f', ':!mix format %<CR>', { noremap = true, silent = true })
+  end
+})
+
+
 
 -- GitMessenger
 nmap('<Leader>gb', ':GitMessenger<CR>')

@@ -63,6 +63,9 @@ vim.cmd([[
   augroup END
 ]])
 
+-- set line width for heex files
+vim.cmd('autocmd Filetype heex setlocal tabstop=4')
+
 -- Plugins --
 --
 
