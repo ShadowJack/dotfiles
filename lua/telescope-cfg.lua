@@ -24,3 +24,5 @@ require('telescope').setup {
 
 -- a native sorter to increase performance
 require('telescope').load_extension('fzf')
+-- an integration with DAP adapters
+require('telescope').load_extension('dap')

@@ -38,7 +38,14 @@ nmap('<D-V>', '"+p')
 map('', '<C-s>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
 -- Show help
 map('', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-
+-- Rename all references to the symbol under the cursor
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(args)
+      vim.api.nvim_buf_set_keymap(0, '', '<C-R>', '<cmd>lua vim.lsp.buf.rename()<CR>', { noremap = true, silent = true })
+    end
+  })
+-- Show line diagnostics on request (to view the full diagnostics message if it's too long)
+map('', '<leader>e', '<cmd>lua vim.diagnostic.open_float(nil, {focus=true})<CR>')
 
 -- Plugins --
 --

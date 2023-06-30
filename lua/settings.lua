@@ -3,12 +3,44 @@ vim.g.mapleader=',' -- set Leader key
 vim.cmd('filetype plugin indent on') -- enable filetype detection
 vim.cmd('syntax on') -- enable syntax highlighting
 
+vim.filetype.add({
+  extension = {
+    -- setup custom filetypes for Defold game engine
+    script = 'lua',
+    gui_script = 'lua',
+    render_script = 'lua',
+    editor_script = 'lua',
+    vsh = 'glsl',
+    fsh = 'glsl',
+    fp = 'glsl',
+    vp = 'glsl'
+  }
+})
+
 vim.o.number=true -- display line numbers
 vim.o.clipboard='unnamed' -- setup clipboard in MacOS
 
+
 -- general color theme
 vim.o.background='dark'
-vim.cmd('colorscheme snow')
+-- configure themes
+vim.cmd[[
+  " Important!!
+  if has('termguicolors')
+    set termguicolors
+  endif
+
+  " Configuration options for sonokai.
+  let g:sonokai_style = 'shusia'
+  let g:sonokai_better_performance = 1
+
+  " Configuration options for everforest.
+  let g:everforest_background = 'hard'
+  let g:everforest_better_performance = 1
+]]
+-- vim.cmd('colorscheme terafox') --nightfox/dawnfox/nordfox/terafox/
+ --vim.cmd('colorscheme sonokai')
+vim.cmd('colorscheme everforest') --everforest
 -- airline colors
 vim.g.airline_powerline_fonts=1
 vim.g.airline_theme='deus'
@@ -30,9 +62,9 @@ vim.o.gdefault=true -- always append g flag to replace command
 vim.o.mouse='a' -- enable mouse
 
 -- folding
-vim.o.foldenable = false
-vim.o.foldlevel = 4 -- limit folding to 4 levels
-vim.o.foldmethod = 'syntax' -- use language syntax to generate folds
+vim.o.foldlevel = 9 -- limit folding to 4 levels
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- window size restrictions
 vim.o.winwidth=80
@@ -76,7 +108,7 @@ vim.g.NERDTreeNodeDelimiter='\t'
 -- Align line-wise comment delimiters flush left instead of following code
 -- indentation
 vim.g.NERDDefaultAlign='left'
--- Add spaces after comment delimiters by default
+ --Add spaces after comment delimiters by default
 vim.g.NERDSpaceDelims=1
 -- Allow commenting and inverting empty lines (useful when commenting a region)
 vim.g.NERDCommentEmptyLines=1

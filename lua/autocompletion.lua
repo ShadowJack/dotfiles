@@ -1,18 +1,3 @@
--- add additional capabilities supported by nvim-cmp
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
-
-local lspconfig = require('lspconfig')
-
--- enable some language servers with the additional completion capabilities offered by nvim-cmp
-local servers = { 'cssmodules_ls', 'dockerls', 'elixirls', 'erlangls', 'html', 'jsonls', 'tailwindcss', 'tsserver' }
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = my_custom_on_attach,
-    capabilities = capabilities,
-  }
-end
-
 -- luasnip setup
 require('luasnip.loaders.from_snipmate').load()
 local luasnip = require('luasnip')
@@ -35,14 +20,25 @@ cmp.setup({
     ['<Leader><tab>'] = function(fallback)
       if luasnip.expandable() then
 	luasnip.expand()
-      else
-	fallback()
       end
     end,
-    ['<CR>'] = cmp.mapping.confirm {
-      behavior = cmp.ConfirmBehavior.Replace,
-      select = true,
-    },
+    ["<CR>"] = cmp.mapping({
+        -- i = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true }),
+        i = function(fallback)
+            if cmp.visible() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+            else
+                fallback()
+            end
+        end,
+        c = function(fallback)
+            if cmp.visible() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+            else
+                fallback()
+            end
+        end
+    }),
     ['<Tab>'] = function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -65,5 +61,6 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
+    { name = 'buffer' }
   },
 })
