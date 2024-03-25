@@ -1,0 +1,4 @@
+-- set tab width for heex files
+-- vim.cmd('autocmd Filetype heex setlocal tabstop=4')
+-- set tab width for lua files
+-- vim.cmd('autocmd FileType lua setlocal shiftwidth=2 softtabstop=2 expandtab')

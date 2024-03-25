@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   -- One of "all", "maintained" (parsers with maintainers), or a list of languages
-  ensure_installed = { "erlang", "elixir", "eex", "heex", "css", "html", "lua" },
+  ensure_installed = { "erlang", "elixir", "eex", "heex", "css", "html", "lua", "typescript", "tsx", "javascript" },
 
   -- Install languages synchronously (only applied to `ensure_installed`)
   sync_install = false,

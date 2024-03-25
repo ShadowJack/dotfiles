@@ -16,6 +16,13 @@ vim.filetype.add({
     vp = 'glsl'
   }
 })
+-- set tab width for heex files
+vim.cmd('autocmd Filetype heex setlocal tabstop=4')
+-- set tab width for lua files
+vim.cmd('autocmd FileType lua setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab')
+-- set tab width for js/ts files
+vim.cmd('autocmd FileType typescript setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab')
+vim.cmd('autocmd FileType typescriptreact setlocal shiftwidth=2 tabstop=2 softtabstop=2 expandtab')
 
 vim.o.number=true -- display line numbers
 vim.o.clipboard='unnamed' -- setup clipboard in MacOS
@@ -95,8 +102,6 @@ vim.cmd([[
   augroup END
 ]])
 
--- set line width for heex files
-vim.cmd('autocmd Filetype heex setlocal tabstop=4')
 
 -- Plugins --
 --
